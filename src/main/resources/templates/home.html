@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Home Page</title>
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <script type="text/javascript">
+        function preventBack(){
+          window.history.forward();
+        }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+    </script>
+</head>
+<body>
+<nav>
+    <div class="navbar">
+        Welcome<a th:href="@{/user/profile}" class="text-info text-decoration-none">
+        <strong sec:authentication="principal.username"></strong>
+    </a>
+    </div>
+    <div><a th:href="@{/logout}">Logout</a></div>
+</nav>
+
+<div class="center-box">
+    <a th:href="@{/students}">
+        <button class="students-btn">
+            Products
+        </button>
+    </a>
+    <a th:href="@{/courses}">
+        <button class="students-btn">
+            Category
+        </button>
+    </a>
+</div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Home Page</title>
+    <link rel="stylesheet" th:href="@{/css/error.css}">
+    <script type="text/javascript">
+        function preventBack(){
+          window.history.forward();
+        }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="error-code">404</div>
+    <div class="message">Oops! The page you're looking for doesn't exist.</div>
+    <a href="/">Home</a>
+</div>
+</body>
+</html>
