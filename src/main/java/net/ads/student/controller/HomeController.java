@@ -34,7 +34,7 @@ public class HomeController {
     public String viewHomePage(Model model) {
         model.addAttribute("students", studentser.getAllStudents());
         model.addAttribute("students", new Students());
-        return findPaginated(1, "id", "asc", model);
+        return findPaginated(1, "regd", "asc", model);
     }
 
     //Show Available courses
@@ -42,7 +42,7 @@ public class HomeController {
     public String viewCategoryPage(Model model) {
         model.addAttribute("courses", courseser.getAllCourses());
         model.addAttribute("courses", new Courses());
-        return findPaginated2(1, "id", "asc", model);
+        return findPaginated2(1, "regd", "asc", model);
     }
 
     // Show form to add a new Student
@@ -78,25 +78,25 @@ public class HomeController {
     }
 
     // Show form to update a Student details
-    @GetMapping("/showFormForUpdate/{id}")
-    public String showFormForUpdate(@PathVariable("id") Long id, Model model) {
-        Students student = studentser.getStudentsById(id);
+    @GetMapping("/showFormForUpdate/{regd}")
+    public String showFormForUpdate(@PathVariable("regd") Long regd, Model model) {
+        Students student = studentser.getStudentsById(regd);
         model.addAttribute("students", student);
         model.addAttribute("courses", courseser.getAllCourses());
         return "update-student";
     }
 
     // Delete a Student
-    @GetMapping("/deleteStudent/{id}")
-    public String deleteStudent(@PathVariable("id") long id) {
-        this.studentser.deleteStudentById(id);
+    @GetMapping("/deleteStudent/{regd}")
+    public String deleteStudent(@PathVariable("regd") long regd) {
+        this.studentser.deleteStudentById(regd);
         return "redirect:/students";
     }
 
     // Delete Course
-    @GetMapping("/deleteCourse/{id}")
-    public String deleteCourse(@PathVariable("id") long id) {
-        this.courseser.deleteCoursesById(id);
+    @GetMapping("/deleteCourse/{regd}")
+    public String deleteCourse(@PathVariable("regd") long regd) {
+        this.courseser.deleteCoursesById(regd);
         return "redirect:/courses";
     }
 

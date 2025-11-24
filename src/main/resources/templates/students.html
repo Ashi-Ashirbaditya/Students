@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="En">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="En">
 <head>
     <meta charset="ISO-8859-1">
     <title>Student</title>
@@ -8,7 +8,80 @@
 </head>
 <body>
 <button onclick="downloadExcel()">Download Excel</button>
+<div class="container">
+    <h2>Student Application</h2>
+    <b><span sec:authentication="principal.username"> User</span></b>
+</div>
+
+<div class="container my-2">
+    <h1>Students List</h1>
+
+    <a th:href = "@{/showNewStudentForm}" class="btn btn-primary btn-sm mb-3"> Add Student </a>
+    <span><a th:href="@{/courses}" class="btn btn-primary btn-sm mb-3">Courses</a></span>
 <table id="myTable" border="1">
-</table>
-</body>
+            <thead>
+            <tr>
+                <th>
+                    <a th:href="@{'/page/' + ${currentPage} + '?sortField=regd&sortDir=' + ${reverseSortDir}}">
+                        Regd. No.</a>
+                </th>
+                <th>
+                    <a th:href="@{'/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">
+                        Name</a>
+                </th>
+                <th>
+                    <a th:href="@{'/page/' + ${currentPage} + '?sortField=std&sortDir=' + ${reverseSortDir}}">
+                        Standard</a>
+                </th>
+                <th>
+                    <a th:href="@{'/page/' + ${currentPage} + '?sortField=&sortDir=' + ${reverseSortDir}}">
+                        Courses </a>
+                </th>
+                <th> Actions </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="student : ${listStudents}">
+                <td th:text="${student.regd}"></td>
+                <td th:text="${student.name}"></td>
+                <td th:text="${student.std}"></td>
+                <td th:text="${student.quantity}"></td>
+                <td> <a th:href="@{/showFormForUpdate/{id}(id=${student.regd})}" class="btn btn-primary">Update</a>
+                    <a th:href="@{/deleteProducts/{id}(id=${product.id})}" onclick="return confirm('Are you sure you want to delete this product?')"
+                       class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div th:if = "${totalPages >= 1}">
+            <div class = "row col-sm-10">
+                <div class = "col-sm-2">
+                    Total Rows: [[${totalItems}]]
+                </div>
+                <div class = "col-sm-1">
+     <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+      <a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+      <span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
+     </span>
+                </div>
+                <div class = "col-sm-2">
+                    <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+
+                    <a th:if="${currentPage > 1}" th:href="@{'/page/' + ${currentPage - 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Back</a>
+
+                    <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+                </div>
+            </div>
+        </div>
+        <!-- Display delete message -->
+        <div th:if="${param.delete}">
+            <div class="alert alert-info">Record deleted Successfully.</div>
+        </div>
+    </div>
+    <nav>
+        <footer><a href="mailto:ashi@gmail.com">ContactUs</a>  </footer>
+        <span><a th:href="@{/}">Home</a></span>
+    </nav>
+    </body>
 </html>

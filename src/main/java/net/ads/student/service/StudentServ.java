@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class StudentServ {
     @Autowired
-    private static StudentRepo studentsrepo;
+    private StudentRepo studentsrepo;
 
     public List<Students> getAllStudents() {
         return studentsrepo.findAll();
