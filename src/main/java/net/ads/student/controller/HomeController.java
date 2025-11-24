@@ -66,37 +66,37 @@ public class HomeController {
     // Save or update student details
     @PostMapping("/saveStudents")
     public String saveStudent(@ModelAttribute("students") Students students) {
-        StudentServ.saveStudent(students);
+        studentser.saveStudent(students);
         return "redirect:/students";
     }
 
     // Save course
     @PostMapping("/saveCourse")
     public String saveCourse(@ModelAttribute("course") Courses courses) {
-       CourseServ.saveCourse(courses);
+       courseser.saveCourse(courses);
         return "redirect:/courses";
     }
 
     // Show form to update a Student details
     @GetMapping("/showFormForUpdate/{id}")
     public String showFormForUpdate(@PathVariable("id") Long id, Model model) {
-        Students student = StudentServ.getStudentsById(id);
+        Students student = studentser.getStudentsById(id);
         model.addAttribute("students", student);
-        model.addAttribute("courses", CourseServ.getAllCourses());
+        model.addAttribute("courses", courseser.getAllCourses());
         return "update-student";
     }
 
     // Delete a Student
     @GetMapping("/deleteStudent/{id}")
     public String deleteStudent(@PathVariable("id") long id) {
-        this.StudentServ.deleteStudentById(id);
+        this.studentser.deleteStudentById(id);
         return "redirect:/students";
     }
 
     // Delete Course
     @GetMapping("/deleteCourse/{id}")
     public String deleteCourse(@PathVariable("id") long id) {
-        this.CourseServ.deleteCourseyById(id);
+        this.courseser.deleteCoursesById(id);
         return "redirect:/courses";
     }
 

@@ -16,7 +16,7 @@ public class Teachers {
     private String lastName;
     private String email;
     private String password;
-    private float salary;
+    private Float salary;
     private Date joiningdate;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -30,7 +30,7 @@ public class Teachers {
     public Teachers() {
     }
 
-    public Teachers(String firstName, String lastName, String email, String password,float salary, Date joiningdate, Collection<Role> roles) {
+    public Teachers(String firstName, String lastName, String email, String password,Float salary, Date joiningdate, Collection<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -81,11 +81,11 @@ public class Teachers {
         this.password = password;
     }
 
-    public float getSalary() {
+    public Float getSalary() {
         return salary;
     }
 
-    public void setSalary(float salary) {
+    public void setSalary(Float salary) {
         this.salary = salary;
     }
 

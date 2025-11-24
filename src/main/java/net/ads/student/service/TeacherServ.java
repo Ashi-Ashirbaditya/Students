@@ -3,7 +3,7 @@ package net.ads.student.service;
 import net.ads.student.dto.TeacherRegis;
 import net.ads.student.model.Teachers;
 import net.ads.student.repo.TeacherRepo;
-import org.apache.catalina.Role;
+import net.ads.student.model.Role;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -37,15 +37,17 @@ public class TeacherServ implements UserDetailsService {
                 registration.getFirstName(),
                 registration.getLastName(),
                 registration.getEmail(),
-                passwordEncoder.encode(registration.getPassword()),  // ✅ encode once
+                passwordEncoder.encode(registration.getPassword()),// ✅ encode once
+                registration.getSalary(),
+                registration.getJoiningdate(),
                 Arrays.asList(new Role("ROLE_USER"))
         );
-        return TeacherRepo.save(teach);
+        return teacherrepo.save(teach);
     }
 
     @Override  // ✅ this annotation ensures correct method override
-    public UserDetails loadUserByTeachername(String username) throws UsernameNotFoundException {
-        Teachers teach = TeacherRepo.findByEmail(username);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Teachers teach = teacherrepo.findByEmail(username);
         if (teach == null) {
             throw new UsernameNotFoundException("Invalid username or password.");
         }
@@ -53,7 +55,7 @@ public class TeacherServ implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(
                 teach.getEmail(),
                 teach.getPassword(),
-                mapRolesToAuthorities(user.getRoles())
+                mapRolesToAuthorities(teach.getRoles())
         );
     }
 
@@ -63,8 +65,4 @@ public class TeacherServ implements UserDetailsService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
-    }
 }
