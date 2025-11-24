@@ -1,10 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Login</title>
+
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+
+    <script type="text/javascript">
+        function preventBack() { window.history.forward(); }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+    </script>
+
 </head>
 <body>
+<div class="container mt-5">
+    <h2 class="mb-4">Login</h2>
 
+    <form th:action="@{/login}" method="post">
+        <div th:if="${param.error}">
+            <div class="alert alert-danger">Invalid email or password.</div>
+        </div>
+
+        <div th:if="${param.logout}">
+            <div class="alert alert-info">You have been logged out.</div>
+        </div>
+
+        <div class="form-group mb-3">
+            <label>Email</label>
+            <input type="email" class="form-control" name="email" placeholder="Email" required/>
+        </div>
+
+        <div class="form-group mb-3">
+            <label>Password</label>
+            <input type="password" class="form-control" name="password" placeholder="Password" required/>
+        </div>
+
+        <button type="submit" class="btn btn-danger">Login</button>
+    </form>
+
+    <div class="regis">
+        <span>New user? <a th:href="@{/registration}">Register here</a></span><br>
+    </div>
+</div>
+
+<footer><a href="mailto:ashi@gmail.com">Contact Us</a></footer>
 </body>
 </html>
